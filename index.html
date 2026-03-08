@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <title>ChatGPT自由發揮盲盒</title>
-    <style>
-        body { margin:0; overflow:hidden; background:#111; }
-        .circle { position:absolute; border-radius:50%; opacity:0.8; }
-    </style>
+<meta charset="UTF-8">
+<title>ChatGPT自由發揮盲盒</title>
+<style>
+body { margin:0; overflow:hidden; background:#000; }
+div{position:absolute;width:20px;height:20px;border-radius:50%;}
+</style>
 </head>
 <body>
 <script>
-    const colors=['#ff0080','#00ffff','#ffff00','#ff8000','#80ff00','#ff00ff'];
-    function spawnCircle(){
-        const c=document.createElement('div');
-        c.className='circle';
-        const size=20+Math.random()*50;
-        c.style.width=c.style.height=size+'px';
-        c.style.left=Math.random()*window.innerWidth+'px';
-        c.style.top=Math.random()*window.innerHeight+'px';
-        c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
-        document.body.appendChild(c);
-        let scale=1;
-        const anim=setInterval(()=>{
-            scale+=0.05;
-            c.style.transform=`scale(${scale})`;
-            c.style.opacity=1-scale*0.02;
-            if(scale>15){clearInterval(anim); c.remove();}
-        },30);
-    }
-    setInterval(spawnCircle,200);
+function randomInt(max){return Math.floor(Math.random()*max);}
+function spawn(){ 
+    const d=document.createElement('div');
+    d.style.background=`hsl(${randomInt(360)},100%,50%)`;
+    d.style.left=randomInt(window.innerWidth)+'px';
+    d.style.top=randomInt(window.innerHeight)+'px';
+    document.body.appendChild(d);
+    let dx=(Math.random()-0.5)*10, dy=(Math.random()-0.5)*10;
+    const move=setInterval(()=>{
+        let x=parseFloat(d.style.left), y=parseFloat(d.style.top);
+        d.style.left=x+dx+'px'; d.style.top=y+dy+'px';
+        if(x<0||x>window.innerWidth-20) dx=-dx;
+        if(y<0||y>window.innerHeight-20) dy=-dy;
+    },30);
+}
+setInterval(spawn,200);
 </script>
 </body>
 </html>
