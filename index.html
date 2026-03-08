@@ -5,7 +5,7 @@
 <title>ChatGPT自由發揮盲盒</title>
 <style>
 body { margin:0; overflow:hidden; background:#111; }
-span{position:absolute; font-size:24px; font-weight:bold;}
+span{ position:absolute; font-weight:bold; }
 </style>
 <body>
 <script>
@@ -15,9 +15,12 @@ function spawn(){
     s.textContent=chars;
     s.style.left=Math.random()*window.innerWidth+'px';
     s.style.top=Math.random()*window.innerHeight+'px';
+    const size=12+Math.random()*36;
+    s.style.fontSize=size+'px';
     s.style.color=`hsl(${Math.random()*360},100%,50%)`;
+    s.style.opacity=0.3+Math.random()*0.7;
     document.body.appendChild(s);
-    let dy=-2-Math.random()*3;
+    let dy=-1-Math.random()*4;
     const anim=setInterval(()=>{
         let y=parseFloat(s.style.top);
         s.style.top=y+dy+'px';
