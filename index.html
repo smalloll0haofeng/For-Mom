@@ -13,18 +13,34 @@ const chars="❤";
 function spawn(){
     const s=document.createElement('span');
     s.textContent=chars;
-    s.style.left=Math.random()*window.innerWidth+'px';
-    s.style.top=Math.random()*window.innerHeight+'px';
-    const size=70 + Math.random()*130; // 70px ~ 200px
+    const size=70 + Math.random()*130; // 70~200px
     s.style.fontSize=size+'px';
     s.style.color=`hsl(${Math.random()*360},100%,50%)`;
-    s.style.opacity=0.75 + Math.random()*0.25; // 0.75 ~ 1
+    s.style.opacity=0.75 + Math.random()*0.25; // 0.75~1
     document.body.appendChild(s);
-    let dy=-1-Math.random()*4;
+
+    const startEdge = Math.floor(Math.random()*4); // 0:上,1:下,2:左,3:右
+    let x, y, dx, dy;
+
+    switch(startEdge){
+        case 0: x=Math.random()*window.innerWidth; y=-size; dx=(Math.random()-0.5)*8; dy=1+Math.random()*4; break;
+        case 1: x=Math.random()*window.innerWidth; y=window.innerHeight+size; dx=(Math.random()-0.5)*8; dy=-(1+Math.random()*4); break;
+        case 2: x=-size; y=Math.random()*window.innerHeight; dx=1+Math.random()*4; dy=(Math.random()-0.5)*8; break;
+        case 3: x=window.innerWidth+size; y=Math.random()*window.innerHeight; dx=-(1+Math.random()*4); dy=(Math.random()-0.5)*8; break;
+    }
+
+    s.style.left=x+'px';
+    s.style.top=y+'px';
+
     const anim=setInterval(()=>{
-        let y=parseFloat(s.style.top);
-        s.style.top=y+dy+'px';
-        if(y<-size){clearInterval(anim); s.remove();}
+        x+=dx;
+        y+=dy;
+        s.style.left=x+'px';
+        s.style.top=y+'px';
+        if(x<-size || x>window.innerWidth+size || y<-size || y>window.innerHeight+size){
+            clearInterval(anim);
+            s.remove();
+        }
     },30);
 }
 setInterval(spawn,200);
