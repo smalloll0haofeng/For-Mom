@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>浩鋒的影片魔法網頁</title>
+    <title>浩鋒魔法秀 Ultimate</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,6 +10,10 @@
             padding-top: 50px;
             transition: background-color 0.5s;
             overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
         }
         button {
             font-size: 1.5em;
@@ -20,6 +24,13 @@
             background-color: #4CAF50;
             color: white;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
         }
         #magicVideo {
             display: none;
@@ -27,38 +38,76 @@
             border: 5px solid #fff;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            margin-bottom: 50px;
+        }
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fly 1s forwards;
+        }
+        @keyframes fly {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
     </style>
 </head>
 <body>
-<button id="magicBtn">點我釋放影片魔法！</button>
-<p id="message"></p>
-<video id="magicVideo" controls>
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放
-</video>
+    <h1>浩鋒魔法秀 Ultimate</h1>
+    <button id="magicBtn">點我釋放魔法！</button>
+    <p id="message"></p>
+    <video id="magicVideo" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        你的瀏覽器不支援影片播放
+    </video>
 
-<script>
-    const button = document.getElementById('magicBtn');
-    const message = document.getElementById('message');
-    const video = document.getElementById('magicVideo');
+    <script>
+        const button = document.getElementById('magicBtn');
+        const message = document.getElementById('message');
+        const video = document.getElementById('magicVideo');
 
-    button.addEventListener('click', () => {
-        // 背景隨機顏色
-        const r = Math.floor(Math.random()*256);
-        const g = Math.floor(Math.random()*256);
-        const b = Math.floor(Math.random()*256);
-        document.body.style.backgroundColor = `rgb(${r},${g},${b})`;
+        button.addEventListener('click', (e) => {
+            // 背景顏色
+            const r = Math.floor(Math.random()*256);
+            const g = Math.floor(Math.random()*256);
+            const b = Math.floor(Math.random()*256);
+            document.body.style.backgroundColor = `rgb(${r},${g},${b})`;
 
-        // 隨機訊息
-        const messages = ["浩鋒，你今天真帥！","程式天才浩鋒在此！","魔法啟動！"];
-        message.textContent = messages[Math.floor(Math.random()*messages.length)];
+            // 隨機訊息
+            const messages = [
+                "浩鋒，你今天真帥！",
+                "程式天才浩鋒在此！",
+                "魔法啟動！",
+                "點得好！再點一次？",
+                "彩色魔法來了✨"
+            ];
+            message.textContent = messages[Math.floor(Math.random()*messages.length)];
 
-        // 顯示並播放影片
-        video.style.display = 'block';
-        video.currentTime = 0;
-        video.play();
-    });
-</script>
+            // 彩色小星星
+            for(let i=0;i<15;i++){
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = e.clientX + 'px';
+                star.style.top = e.clientY + 'px';
+                // 隨機方向和顏色
+                const x = (Math.random()*200-100) + 'px';
+                const y = (Math.random()*-200) + 'px';
+                star.style.setProperty('--x', x);
+                star.style.setProperty('--y', y);
+                star.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+                document.body.appendChild(star);
+                setTimeout(()=>star.remove(), 1000);
+            }
+
+            // 顯示並播放影片
+            video.style.display = 'block';
+            video.currentTime = 0;
+            video.play();
+        });
+    </script>
 </body>
 </html>
