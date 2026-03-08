@@ -1,113 +1,49 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <title>浩鋒魔法秀 Ultimate</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            transition: background-color 0.5s;
-            overflow: hidden;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        button {
-            font-size: 1.5em;
-            padding: 15px 30px;
-            cursor: pointer;
-            border: none;
-            border-radius: 10px;
-            background-color: #4CAF50;
-            color: white;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        p {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        #magicVideo {
-            display: none;
-            width: 60%;
-            border: 5px solid #fff;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            margin-bottom: 50px;
-        }
-        .star {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: yellow;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            animation: fly 1s forwards;
-        }
-        @keyframes fly {
-            0% { transform: translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>浩鋒 Ultimate 魔法秀</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; padding-top:50px; transition: background-color 0.5s; overflow:hidden; }
+h1 { font-size:3em; margin-bottom:20px; }
+button { font-size:1.5em; padding:15px 30px; cursor:pointer; border:none; border-radius:10px; background-color:#4CAF50; color:white; margin-bottom:20px; position:relative; z-index:1; }
+p { font-size:1.2em; color:#333; margin-bottom:20px; }
+#magicVideo { display:none; width:60%; border:5px solid #fff; border-radius:15px; box-shadow:0 0 30px rgba(0,0,0,0.7); margin-bottom:50px; opacity:0; transition: opacity 1s; }
+.star { position:absolute; width:12px; height:12px; border-radius:50%; pointer-events:none; z-index:9999; animation:fly 1s forwards; }
+@keyframes fly { 0%{transform:translate(0,0) scale(1); opacity:1;} 100%{transform:translate(var(--x), var(--y)) scale(0); opacity:0;} }
+</style>
 </head>
 <body>
-    <h1>浩鋒魔法秀 Ultimate</h1>
-    <button id="magicBtn">點我釋放魔法！</button>
-    <p id="message"></p>
-    <video id="magicVideo" controls>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        你的瀏覽器不支援影片播放
-    </video>
-
-    <script>
-        const button = document.getElementById('magicBtn');
-        const message = document.getElementById('message');
-        const video = document.getElementById('magicVideo');
-
-        button.addEventListener('click', (e) => {
-            // 背景顏色
-            const r = Math.floor(Math.random()*256);
-            const g = Math.floor(Math.random()*256);
-            const b = Math.floor(Math.random()*256);
-            document.body.style.backgroundColor = `rgb(${r},${g},${b})`;
-
-            // 隨機訊息
-            const messages = [
-                "浩鋒，你今天真帥！",
-                "程式天才浩鋒在此！",
-                "魔法啟動！",
-                "點得好！再點一次？",
-                "彩色魔法來了✨"
-            ];
-            message.textContent = messages[Math.floor(Math.random()*messages.length)];
-
-            // 彩色小星星
-            for(let i=0;i<15;i++){
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = e.clientX + 'px';
-                star.style.top = e.clientY + 'px';
-                // 隨機方向和顏色
-                const x = (Math.random()*200-100) + 'px';
-                const y = (Math.random()*-200) + 'px';
-                star.style.setProperty('--x', x);
-                star.style.setProperty('--y', y);
-                star.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
-                document.body.appendChild(star);
-                setTimeout(()=>star.remove(), 1000);
-            }
-
-            // 顯示並播放影片
-            video.style.display = 'block';
-            video.currentTime = 0;
-            video.play();
-        });
-    </script>
+<h1>浩鋒 Ultimate 魔法秀</h1>
+<button id="magicBtn">點我釋放魔法！</button>
+<p id="message"></p>
+<video id="magicVideo" controls>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+你的瀏覽器不支援影片播放
+</video>
+<script>
+const button=document.getElementById('magicBtn');
+const message=document.getElementById('message');
+const video=document.getElementById('magicVideo');
+button.addEventListener('click',(e)=>{
+document.body.style.backgroundColor=`rgb(${Math.random()*256|0},${Math.random()*256|0},${Math.random()*256|0})`;
+const messages=["浩鋒，你今天真帥！","魔法啟動✨","程式天才浩鋒！","彩虹魔法出現！","再點一次？"];
+message.textContent=messages[Math.floor(Math.random()*messages.length)];
+for(let i=0;i<20;i++){
+const star=document.createElement('div');
+star.className='star';
+star.style.left=e.clientX+'px';
+star.style.top=e.clientY+'px';
+star.style.setProperty('--x',(Math.random()*300-150)+'px');
+star.style.setProperty('--y',(Math.random()*-300)+'px');
+star.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),1000);}
+video.style.display='block';
+video.currentTime=0;
+video.play();
+setTimeout(()=>video.style.opacity=1,50);
+});
+</script>
 </body>
 </html>
