@@ -5,15 +5,14 @@
 <title>ChatGPT自由發揮盲盒</title>
 <style>
 body { margin:0; overflow:hidden; background:#111; }
-span{position:absolute; font-size:20px; font-weight:bold;}
+span{position:absolute; font-size:24px; font-weight:bold;}
 </style>
-</head>
 <body>
 <script>
-const chars="★☆✦✧✩✪✫✬✭✮✯";
+const chars="❤";
 function spawn(){
     const s=document.createElement('span');
-    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.textContent=chars;
     s.style.left=Math.random()*window.innerWidth+'px';
     s.style.top=Math.random()*window.innerHeight+'px';
     s.style.color=`hsl(${Math.random()*360},100%,50%)`;
