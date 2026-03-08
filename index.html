@@ -10,12 +10,13 @@ span { position:absolute; font-weight:bold; }
 <body>
 <script>
 const chars="❤";
+const coolColors=[180,200,220,250,280,300]; // 冷色系 H
 function spawn(){
     const s=document.createElement('span');
     s.textContent=chars;
-    let size=70 + Math.random()*130; // 初始大小 70~200px
+    let size=70 + Math.random()*130;
     s.style.fontSize=size+'px';
-    s.style.color=`hsl(${Math.random()*360},100%,50%)`;
+    s.style.color=`hsl(${coolColors[Math.floor(Math.random()*coolColors.length)]},100%,50%)`;
     s.style.opacity=0.75 + Math.random()*0.25;
     document.body.appendChild(s);
 
@@ -33,9 +34,9 @@ function spawn(){
     const anim=setInterval(()=>{
         x+=dx;
         y+=dy;
-        size += (Math.random()-0.5)*5; // 忽大忽小
-        if(size<50) size=50;
-        if(size>220) size=220;
+        size += (Math.random()-0.5)*5;
+        if(size<70) size=70;
+        if(size>200) size=200;
         s.style.fontSize=size+'px';
         s.style.left=x+'px';
         s.style.top=y+'px';
